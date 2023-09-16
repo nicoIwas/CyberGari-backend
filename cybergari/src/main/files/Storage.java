@@ -1,4 +1,4 @@
-package files;
+package main.files;
 
 public abstract class Storage implements Comparable<Storage> {
     public abstract double getSize();

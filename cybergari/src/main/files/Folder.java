@@ -1,5 +1,6 @@
-package files;
+package main.files;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,8 +12,8 @@ public class Folder extends Storage {
     }
 
     // Maybe a top-down folder creation is better
-    public void addStorage(final Storage toAdd) {
-        this.storages.add(toAdd);
+    public void addStorage(final Storage... toAdd) {
+        this.storages.addAll(Arrays.asList(toAdd));
     }
 
     @Override
