@@ -20,4 +20,8 @@ public class Folder extends Storage {
     public double getSize() {
         return storages.stream().map(Storage::getSize).reduce(0.0, Double::sum);
     }
+
+    public Set<Storage> getStorages() {
+        return storages;
+    }
 }

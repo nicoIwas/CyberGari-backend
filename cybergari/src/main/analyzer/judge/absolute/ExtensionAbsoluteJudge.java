@@ -13,6 +13,6 @@ public class ExtensionAbsoluteJudge implements AbsoluteJudge {
 
     @Override
     public boolean judgeFile(final File toJudge) {
-        return !extensionsToIgnore.contains(toJudge.getExtension());
+        return extensionsToIgnore.contains(toJudge.getExtension());
     }
 }
