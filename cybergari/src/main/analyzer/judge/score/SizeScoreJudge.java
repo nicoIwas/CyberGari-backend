@@ -1,16 +1,12 @@
 package main.analyzer.judge.score;
 
+import lombok.RequiredArgsConstructor;
 import main.files.Storage;
 
+@RequiredArgsConstructor
 public class SizeScoreJudge implements ScoreJudge {
     private final float minSize;
     private final float coefficient;
-
-    public SizeScoreJudge(float minSize, float coefficient) {
-        this.minSize = minSize;
-        this.coefficient = coefficient;
-    }
-
 
     @Override
     public int judgeFile(final Storage toJudge) {
