@@ -1,11 +1,14 @@
 package main.files;
 
+import lombok.Getter;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
 public class FileStructureMetadata {
+    @Getter
     private final Folder root;
     private final Map<String, File> cache;
 

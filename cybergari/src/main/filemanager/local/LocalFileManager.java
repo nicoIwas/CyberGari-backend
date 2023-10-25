@@ -1,20 +1,25 @@
 package main.filemanager.local;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import main.filemanager.FileManager;
-import main.files.FileStructureMetadata;
+import main.files.File;
+import main.files.Folder;
 
-@RequiredArgsConstructor
+import java.util.Collection;
+
 public class LocalFileManager implements FileManager {
-    private final String rootPath;
-    @Getter
-    private FileStructureMetadata metadata;
+    private final LocalFileReader reader;
+
+    public LocalFileManager(final String rootPath) {
+        this.reader = new LocalFileReader(rootPath);
+    }
 
     @Override
-    public FileStructureMetadata readFileStructureFromRoot() {
-        final var root = LocalFileUtils.readFileStructureFromRoot(rootPath);
-        this.metadata = new FileStructureMetadata(root);
-        return metadata;
+    public Collection<File> getAllFiles() {
+        return reader.getAllFilesMetadata();
+    }
+
+    @Override
+    public Folder getFileStructure() {
+        return reader.getFileStructure();
     }
 }

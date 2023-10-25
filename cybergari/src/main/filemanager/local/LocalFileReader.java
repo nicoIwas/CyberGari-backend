@@ -1,0 +1,86 @@
+package main.filemanager.local;
+
+import main.files.FileStructureMetadata;
+import main.files.Folder;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LocalFileReader {
+    private final FileStructureMetadata metadata;
+    private final Map<String, String> filePathCache;
+
+    public LocalFileReader(final String rootPath) {
+        this.filePathCache = new HashMap<>();
+
+        final var root = readFileStructureFromRoot(rootPath);
+        this.metadata = new FileStructureMetadata(root);
+    }
+
+    public Collection<main.files.File> getAllFilesMetadata() {
+        return this.metadata.getAllFiles();
+    }
+
+    public Folder getFileStructure() {
+        return this.metadata.getRoot();
+    }
+
+    public String getFilePathFromId(final String id) {
+        return filePathCache.get(id);
+    }
+
+    private Folder readFileStructureFromRoot(final String rootPath) {
+        Folder ret = null;
+
+        try {
+            ret = readFileStructureFromFile(new File(rootPath));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return ret;
+    }
+
+    private Folder readFileStructureFromFile(final File localRoot) throws IOException {
+        final Folder ret = new Folder();
+
+        for(final File f : localRoot.listFiles()) {
+            if(f.isDirectory())
+                ret.addStorage(readFileStructureFromFile(f));
+            else {
+                final var domainFile = fileMetadataToFileDomain(f);
+                ret.addStorage(domainFile);
+                filePathCache.put(domainFile.getId(), f.getAbsolutePath());
+            }
+        }
+
+        return ret;
+    }
+
+    private main.files.File fileMetadataToFileDomain(final File f) throws IOException {
+        final var att = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+
+        return new main.files.File(
+                getFileId(f),
+                att.size(),
+                att.creationTime().toInstant(),
+                att.lastModifiedTime().toInstant(),
+                getFileName(f)
+        );
+    }
+
+    private String getFileName(final File file) {
+        final var fileName = file.getName();
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    private String getFileId(final File file) {
+        final var filePath = file.getAbsolutePath();
+        return filePath.substring(0, filePath.lastIndexOf(".")).hashCode() + "";
+    }
+}

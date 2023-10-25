@@ -1,7 +1,11 @@
 package main.filemanager;
 
-import main.files.FileStructureMetadata;
+import main.files.File;
+import main.files.Folder;
+
+import java.util.Collection;
 
 public interface FileManager {
-    FileStructureMetadata readFileStructureFromRoot();
+    Collection<File> getAllFiles();
+    Folder getFileStructure();
 }
