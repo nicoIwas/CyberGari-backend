@@ -6,9 +6,11 @@ import main.files.File;
 import main.files.Folder;
 import main.files.Storage;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class Analyzer {
     private final List<AbsoluteJudge> absoluteJudges;
@@ -19,9 +21,9 @@ public class Analyzer {
         this.scoreJudges = scoreJudges;
     }
 
-    public List<ScoredFile> analyze(final Folder root) {
+    public List<ScoredFile> analyze(final Collection<File> files) {
         final List<ScoredFile> result = new LinkedList<>();
-        final var toAnalyse = getAnalysableFiles(root);
+        final var toAnalyse = getAnalysableFiles(files);
 
         for(final var file : toAnalyse) {
             final var score = getFileScore(file);
@@ -31,22 +33,8 @@ public class Analyzer {
         return result;
     }
 
-    private List<File> getAnalysableFiles(final Folder root) {
-        final List<File> result = new LinkedList<>();
-        final Stack<Folder> toExplore = new Stack<>();
-        toExplore.push(root);
-
-        while(!toExplore.empty()) {
-            for(final Storage storage : toExplore.pop().getStorages()) {
-                if(storage instanceof Folder)
-                    toExplore.add((Folder) storage);
-
-                if(storage instanceof File && !shouldIgnoreFile((File) storage))
-                    result.add((File) storage);
-            }
-        }
-
-        return result;
+    private Collection<File> getAnalysableFiles(final Collection<File> files) {
+        return files.stream().filter(file -> !shouldIgnoreFile(file)).collect(Collectors.toSet());
     }
 
     private boolean shouldIgnoreFile(final File file) {
