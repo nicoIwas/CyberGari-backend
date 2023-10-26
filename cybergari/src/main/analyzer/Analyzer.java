@@ -3,13 +3,10 @@ package main.analyzer;
 import main.analyzer.judge.absolute.AbsoluteJudge;
 import main.analyzer.judge.score.ScoreJudge;
 import main.files.File;
-import main.files.Folder;
-import main.files.Storage;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Analyzer {
