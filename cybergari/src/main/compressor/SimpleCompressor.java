@@ -14,15 +14,16 @@ public class SimpleCompressor implements Compressor {
         // compressing
         final var tempFilePath = filePath + "temp";
 
-        FileOutputStream fos = new FileOutputStream(tempFilePath);
-        ZipOutputStream zipOut = new ZipOutputStream(fos);
+        final var fos = new FileOutputStream(tempFilePath);
+        final var zipOut = new ZipOutputStream(fos);
 
-        File fileToZip = new File(filePath);
-        FileInputStream fis = new FileInputStream(fileToZip);
-        ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+        final var fileToZip = new File(filePath);
+        final var fis = new FileInputStream(fileToZip);
+        final var zipEntry = new ZipEntry(fileToZip.getName());
+        
         zipOut.putNextEntry(zipEntry);
 
-        byte[] bytes = new byte[1024];
+        final var bytes = new byte[1024];
         int length;
         while((length = fis.read(bytes)) >= 0) {
             zipOut.write(bytes, 0, length);
@@ -41,12 +42,12 @@ public class SimpleCompressor implements Compressor {
         // uncompressing
         final var tempFilePath = filePath + "temp";
 
-        byte[] buffer = new byte[1024];
-        ZipInputStream zis = new ZipInputStream(new FileInputStream(filePath));
+        final var buffer = new byte[1024];
+        final var zis = new ZipInputStream(new FileInputStream(filePath));
         zis.getNextEntry();
 
         // write file content
-        FileOutputStream fos = new FileOutputStream(tempFilePath);
+        final var fos = new FileOutputStream(tempFilePath);
         int len;
         while ((len = zis.read(buffer)) > 0) {
             fos.write(buffer, 0, len);
