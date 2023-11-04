@@ -1,11 +1,13 @@
 package main.file;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import main.file.tag.Priority;
 
 import java.time.Instant;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 public class File extends Storage {
     private final String id;
@@ -13,6 +15,9 @@ public class File extends Storage {
     private final Instant createdTime;
     private final Instant modifiedTime;
     private final String extension;
+    private final Priority priority;
+    @Setter
+    private boolean compressed;
 
     @Override
     public double getSize() {

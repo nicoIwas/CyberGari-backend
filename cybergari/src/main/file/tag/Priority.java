@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Getter
 public class Priority {
     private final Map<String, Integer> tags;
-    @Getter
     private Integer priority;
 
     public Priority() {

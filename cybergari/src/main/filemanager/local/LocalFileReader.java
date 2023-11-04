@@ -2,6 +2,7 @@ package main.filemanager.local;
 
 import main.file.FileStructureMetadata;
 import main.file.Folder;
+import main.file.tag.Priority;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,22 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalFileReader {
-    private final FileStructureMetadata metadata;
+    private final LocalFileMetaDataManager localFileMetaDataManager;
+    private final FileStructureMetadata structureMetadata;
     private final Map<String, String> filePathCache;
 
     public LocalFileReader(final String rootPath) {
         this.filePathCache = new HashMap<>();
+        this.localFileMetaDataManager = new LocalFileMetaDataManager(rootPath);
 
         final var root = readFileStructureFromRoot(rootPath);
-        this.metadata = new FileStructureMetadata(root);
+        this.structureMetadata = new FileStructureMetadata(root);
     }
 
     public Collection<main.file.File> getAllFilesMetadata() {
-        return this.metadata.getAllFiles();
+        return this.structureMetadata.getAllFiles();
     }
 
     public Folder getFileStructure() {
-        return this.metadata.getRoot();
+        return this.structureMetadata.getRoot();
     }
 
     public String getFilePathFromId(final String id) {
@@ -63,14 +66,18 @@ public class LocalFileReader {
     }
 
     private main.file.File fileMetadataToFileDomain(final File f) throws IOException {
+        final var fileId = getFileId(f);
         final var att = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+        final var extraMetaData = this.localFileMetaDataManager.getMetaData(fileId);
 
         return new main.file.File(
-                getFileId(f),
+                fileId,
                 att.size(),
                 att.creationTime().toInstant(),
                 att.lastModifiedTime().toInstant(),
-                getFileName(f)
+                getFileName(f),
+                extraMetaData.map(metaData -> new Priority(metaData.getTags())).orElse(null),
+                extraMetaData.map(LocalFileMetaData::isCompressed).orElse(false)
         );
     }
 
