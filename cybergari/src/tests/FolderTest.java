@@ -1,7 +1,7 @@
 package tests;
 
-import main.files.File;
-import main.files.Folder;
+import main.file.File;
+import main.file.Folder;
 import org.junit.Test;
 
 import java.time.Instant;

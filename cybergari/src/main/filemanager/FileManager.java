@@ -1,7 +1,7 @@
 package main.filemanager;
 
-import main.files.File;
-import main.files.Folder;
+import main.file.File;
+import main.file.Folder;
 
 import java.util.Collection;
 

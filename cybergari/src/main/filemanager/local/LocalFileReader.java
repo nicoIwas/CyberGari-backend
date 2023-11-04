@@ -1,7 +1,7 @@
 package main.filemanager.local;
 
-import main.files.FileStructureMetadata;
-import main.files.Folder;
+import main.file.FileStructureMetadata;
+import main.file.Folder;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class LocalFileReader {
         this.metadata = new FileStructureMetadata(root);
     }
 
-    public Collection<main.files.File> getAllFilesMetadata() {
+    public Collection<main.file.File> getAllFilesMetadata() {
         return this.metadata.getAllFiles();
     }
 
@@ -62,10 +62,10 @@ public class LocalFileReader {
         return ret;
     }
 
-    private main.files.File fileMetadataToFileDomain(final File f) throws IOException {
+    private main.file.File fileMetadataToFileDomain(final File f) throws IOException {
         final var att = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
 
-        return new main.files.File(
+        return new main.file.File(
                 getFileId(f),
                 att.size(),
                 att.creationTime().toInstant(),

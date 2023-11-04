@@ -2,7 +2,7 @@ package main.analyzer;
 
 import main.analyzer.judge.absolute.AbsoluteJudge;
 import main.analyzer.judge.score.ScoreJudge;
-import main.files.File;
+import main.file.File;
 
 import java.util.Collection;
 import java.util.LinkedList;

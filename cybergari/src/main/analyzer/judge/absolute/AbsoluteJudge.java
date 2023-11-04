@@ -1,6 +1,6 @@
 package main.analyzer.judge.absolute;
 
-import main.files.File;
+import main.file.File;
 
 /**
  * Used to immediately ignore a file compression

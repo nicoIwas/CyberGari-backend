@@ -2,7 +2,7 @@ package main.analyzer;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import main.files.File;
+import main.file.File;
 
 @Getter
 @RequiredArgsConstructor

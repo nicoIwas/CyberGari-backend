@@ -1,4 +1,4 @@
-package main.files;
+package main.file;
 
 import java.util.Arrays;
 import java.util.Set;

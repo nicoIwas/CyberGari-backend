@@ -1,7 +1,7 @@
 package main.analyzer.judge.absolute;
 
 import lombok.RequiredArgsConstructor;
-import main.files.File;
+import main.file.File;
 
 import java.util.Set;
 

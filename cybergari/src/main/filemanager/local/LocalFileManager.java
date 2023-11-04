@@ -2,8 +2,8 @@ package main.filemanager.local;
 
 import main.compressor.Compressor;
 import main.filemanager.FileManager;
-import main.files.File;
-import main.files.Folder;
+import main.file.File;
+import main.file.Folder;
 
 import java.util.Collection;
 

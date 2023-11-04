@@ -1,7 +1,7 @@
 package main.analyzer.judge.score;
 
 import lombok.RequiredArgsConstructor;
-import main.files.Storage;
+import main.file.Storage;
 
 @RequiredArgsConstructor
 public class SizeScoreJudge implements ScoreJudge {
