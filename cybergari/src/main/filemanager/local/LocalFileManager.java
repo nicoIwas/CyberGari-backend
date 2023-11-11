@@ -47,4 +47,9 @@ public class LocalFileManager implements FileManager {
             System.err.println("Error uncompressing file!");
         }
     }
+
+    @Override
+    public void persistMetadata(final Collection<File> toUpdate) {
+        reader.persistMetadata(toUpdate);
+    }
 }

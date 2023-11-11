@@ -1,7 +1,7 @@
 package main.filemanager.local;
 
 import main.file.File;
-import main.file.tag.Tag;
+import main.tag.Tag;
 
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package main.file.tag;
+package main.tag;
 
 import lombok.Getter;
 
@@ -22,7 +22,7 @@ public class Priority {
     }
 
     private void calculatePriority() {
-        this.priority = tags.values().stream().max(Integer::compareTo).orElse(null);
+        this.priority = tags.values().stream().min(Integer::compareTo).orElse(null);
     }
 
     public boolean addTag(final Tag tag) {

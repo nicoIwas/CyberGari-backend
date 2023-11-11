@@ -2,7 +2,7 @@ package main.filemanager.local;
 
 import main.file.FileStructureMetadata;
 import main.file.Folder;
-import main.file.tag.Priority;
+import main.tag.Priority;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +16,7 @@ public class LocalFileReader {
     private final LocalFileMetaDataManager localFileMetaDataManager;
     private final FileStructureMetadata structureMetadata;
     private final Map<String, String> filePathCache;
+    private final LocalFileMetaDataMapper mapper;
 
     public LocalFileReader(final String rootPath) {
         this.filePathCache = new HashMap<>();
@@ -23,6 +24,8 @@ public class LocalFileReader {
 
         final var root = readFileStructureFromRoot(rootPath);
         this.structureMetadata = new FileStructureMetadata(root);
+
+        this.mapper = new LocalFileMetaDataMapper();
     }
 
     public Collection<main.file.File> getAllFilesMetadata() {
@@ -89,5 +92,14 @@ public class LocalFileReader {
     private String getFileId(final File file) {
         final var filePath = file.getAbsolutePath();
         return filePath.substring(0, filePath.lastIndexOf(".")).hashCode() + "";
+    }
+
+    public void persistMetadata(final Collection<main.file.File> toUpdate) {
+        toUpdate.forEach(domain -> {
+            final var extraMetadata = mapper.toMetadata(domain);
+            localFileMetaDataManager.putMetaData(extraMetadata);
+        });
+
+        localFileMetaDataManager.persistMetaData();
     }
 }

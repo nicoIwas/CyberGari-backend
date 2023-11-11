@@ -10,4 +10,5 @@ public interface FileManager {
     Folder getFileStructure();
     void compressFile(String fileId);
     void uncompressFile(String fileId);
+    void persistMetadata(Collection<File> toUpdate);
 }
