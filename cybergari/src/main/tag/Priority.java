@@ -19,22 +19,10 @@ public class Priority {
 
     public Priority(final List<Tag> tags) {
         this.tags = tags.stream().collect(Collectors.toMap(Tag::getName, Tag::getTagPriority));
+        calculatePriority();
     }
 
     private void calculatePriority() {
         this.priority = tags.values().stream().min(Integer::compareTo).orElse(null);
-    }
-
-    public boolean addTag(final Tag tag) {
-        if(tags.containsKey(tag.getName())) {
-            return false;
-        }
-
-        tags.put(tag.getName(), tag.getTagPriority());
-        return true;
-    }
-
-    public boolean removeTag(final String tagName) {
-        return tags.remove(tagName) != null;
     }
 }
