@@ -75,6 +75,7 @@ public class LocalFileReader {
 
         return new main.file.File(
                 fileId,
+                getFileName(f),
                 att.size(),
                 att.creationTime().toInstant(),
                 att.lastModifiedTime().toInstant(),

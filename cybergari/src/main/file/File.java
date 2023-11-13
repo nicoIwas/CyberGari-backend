@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 public class File extends Storage {
     private final String id;
+    private final String name;
     private final double size;
     private final Instant createdTime;
     private final Instant modifiedTime;

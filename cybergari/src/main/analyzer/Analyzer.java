@@ -1,5 +1,6 @@
 package main.analyzer;
 
+import main.analyzer.judge.JudgePackage;
 import main.analyzer.judge.absolute.AbsoluteJudge;
 import main.analyzer.judge.score.ScoreJudge;
 import main.file.File;
@@ -13,9 +14,9 @@ public class Analyzer {
     private final List<AbsoluteJudge> absoluteJudges;
     private final List<ScoreJudge> scoreJudges;
 
-    public Analyzer(final List<AbsoluteJudge> absoluteJudges, final List<ScoreJudge> scoreJudges) {
-        this.absoluteJudges = absoluteJudges;
-        this.scoreJudges = scoreJudges;
+    public Analyzer(final JudgePackage judgePackage) {
+        this.absoluteJudges = judgePackage.getAbsoluteJudges();
+        this.scoreJudges = judgePackage.getScoreJudges();
     }
 
     public List<ScoredFile> analyze(final Collection<File> files) {
