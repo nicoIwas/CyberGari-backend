@@ -1,5 +1,7 @@
 package main.compressor;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
+@Component
 public class SimpleCompressor implements Compressor {
     @Override
     public void compress(final String filePath) throws IOException {

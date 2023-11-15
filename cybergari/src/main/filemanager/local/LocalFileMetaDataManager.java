@@ -19,7 +19,7 @@ public class LocalFileMetaDataManager {
     private final Map<String, LocalFileMetaData> filesMetadata;
 
     public LocalFileMetaDataManager(final String root) {
-        this.metadataPath = root + "\\" + METADATA_FILE_NAME;
+        this.metadataPath = root + "/" + METADATA_FILE_NAME;
         this.filesMetadata = getFilesMetadata();
     }
 

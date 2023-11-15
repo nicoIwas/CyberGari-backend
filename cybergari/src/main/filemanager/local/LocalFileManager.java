@@ -1,20 +1,28 @@
 package main.filemanager.local;
 
+import lombok.Builder;
 import main.compressor.Compressor;
 import main.filemanager.FileManager;
 import main.file.File;
 import main.file.Folder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-
+@Component
 public class LocalFileManager implements FileManager {
     private final LocalFileReader reader;
     private final Compressor compressor;
 
-    public LocalFileManager(final Compressor compressor, final String rootPath) {
-        this.reader = new LocalFileReader(rootPath);
+
+    public LocalFileManager(final Compressor compressor) {
+        this.reader = new LocalFileReader("/home/nicolinux/test/");
         this.compressor = compressor;
     }
+//    public LocalFileManager(final Compressor compressor, final String rootPath) {
+//        this.reader = new LocalFileReader(rootPath);
+//        this.compressor = compressor;
+//    }
 
     @Override
     public Collection<File> getAllFiles() {

@@ -6,10 +6,11 @@ import main.analyzer.judge.JudgeService;
 import main.filemanager.FileManager;
 import main.report.vo.Report;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+@Service
 public class ReportService {
     @Autowired
     private FileManager fileManager;
