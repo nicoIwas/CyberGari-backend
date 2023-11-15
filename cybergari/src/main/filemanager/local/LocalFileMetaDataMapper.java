@@ -1,16 +1,14 @@
 package main.filemanager.local;
 
 import main.file.File;
-import main.tag.Tag;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class LocalFileMetaDataMapper {
     public LocalFileMetaData toMetadata(final File f) {
         return new LocalFileMetaData(
                 f.getId(),
-                f.getPriority().getTags().entrySet().stream()
-                        .map(entry -> new Tag(entry.getKey(), entry.getValue())).collect(Collectors.toList()),
+                new ArrayList<>(f.getPriority().getTags().values()),
                 f.isCompressed()
         );
     }
