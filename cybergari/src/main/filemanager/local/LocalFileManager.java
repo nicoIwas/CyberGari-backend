@@ -16,7 +16,7 @@ public class LocalFileManager implements FileManager {
 
 
     public LocalFileManager(final Compressor compressor) {
-        this.reader = new LocalFileReader("/home/nicolinux/test/");
+        this.reader = new LocalFileReader(LocalFileSettings.FOLDER);
         this.compressor = compressor;
     }
 //    public LocalFileManager(final Compressor compressor, final String rootPath) {
