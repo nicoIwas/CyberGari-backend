@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static main.filemanager.local.LocalFileMetaDataManager.METADATA_FILE_NAME;
+
 public class LocalFileReader {
     private final LocalFileMetaDataManager localFileMetaDataManager;
     private final FileStructureMetadata structureMetadata;
@@ -58,7 +60,7 @@ public class LocalFileReader {
         for(final File f : localRoot.listFiles()) {
             if(f.isDirectory())
                 ret.addStorage(readFileStructureFromFile(f));
-            else {
+            else if (!METADATA_FILE_NAME.equals(f.getName())){
                 final var domainFile = fileMetadataToFileDomain(f);
                 ret.addStorage(domainFile);
                 filePathCache.put(domainFile.getId(), f.getAbsolutePath());
@@ -79,13 +81,18 @@ public class LocalFileReader {
                 att.size(),
                 att.creationTime().toInstant(),
                 att.lastModifiedTime().toInstant(),
-                getFileName(f),
+                getFileExtension(f),
                 extraMetaData.map(metaData -> new Priority(metaData.getTags())).orElse(null),
                 extraMetaData.map(LocalFileMetaData::isCompressed).orElse(false)
         );
     }
 
     private String getFileName(final File file) {
+        final var fileName = file.getName();
+        return fileName.substring(0, fileName.lastIndexOf("."));
+    }
+
+    private String getFileExtension(final File file) {
         final var fileName = file.getName();
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
