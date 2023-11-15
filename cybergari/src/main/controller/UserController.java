@@ -1,5 +1,6 @@
 package main.controller;
 
+import main.controller.response.LoginResponse;
 import main.user.UserData;
 import main.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserData updateUser(@RequestBody final UserData userData) {
         return userService.updateUser(userData);
+    }
+
+    @PostMapping("/users/login/{code}")
+    @ResponseStatus(HttpStatus.OK)
+    public LoginResponse loginUser(@PathVariable final String code) {
+        return userService.loginUser(code);
     }
 }
