@@ -1,6 +1,5 @@
 package main.user;
 
-import lombok.Builder;
 import lombok.Data;
 import main.user.configuration.UserConfig;
 
@@ -10,11 +9,19 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@Builder
 public class UserData {
 
     @Id
     private String id;
     @Embedded
     private UserConfig userConfig;
+
+    public UserData(String id) {
+        this.id = id;
+        this.userConfig = new UserConfig();
+    }
+
+    public UserData() {
+
+    }
 }

@@ -25,6 +25,7 @@ public class UserController {
         return userService.updateUser(userData);
     }
 
+    @CrossOrigin
     @PostMapping("/users/login/{code}")
     @ResponseStatus(HttpStatus.OK)
     public LoginResponse loginUser(@PathVariable final String code) {
