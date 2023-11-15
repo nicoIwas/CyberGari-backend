@@ -8,7 +8,8 @@ import java.util.Collection;
 public interface FileManager {
     Collection<File> getAllFiles();
     Folder getFileStructure();
-    void compressFile(String fileId);
-    void uncompressFile(String fileId);
+    boolean compressFile(String fileId);
+    boolean uncompressFile(String fileId);
+    boolean deleteFile(String fileId);
     void persistMetadata(Collection<File> toUpdate);
 }

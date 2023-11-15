@@ -10,4 +10,5 @@ import java.io.Serializable;
 public class Tag implements Serializable {
     private final String name;
     private final int tagPriority;
+    private final String tagColor;
 }
