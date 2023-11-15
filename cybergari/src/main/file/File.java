@@ -27,6 +27,11 @@ public class File extends Storage {
         return size;
     }
 
+    @Override
+    public int getFileCount() {
+        return 1;
+    }
+
     public void setTags(final List<Tag> tags) {
         this.priority = new Priority(tags);
     }

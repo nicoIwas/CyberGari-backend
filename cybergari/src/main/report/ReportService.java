@@ -4,11 +4,13 @@ import main.analyzer.Analyzer;
 import main.analyzer.classifier.FileClassifier;
 import main.analyzer.judge.JudgeService;
 import main.exception.InvalidReportForUser;
+import main.file.File;
 import main.filemanager.FileManager;
 import main.report.vo.Report;
 import main.report.vo.ReportConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,7 +28,8 @@ public class ReportService {
 
     public Report generateReportForUser(final String userId) {
         final var analyser = new Analyzer(judgeService.findJudgesForUser(userId));
-        final var scoredFiles = analyser.analyze(fileManager.getAllFiles());
+        Collection<File> allFiles = fileManager.getAllFiles();
+        final var scoredFiles = analyser.analyze(allFiles);
         final var classifiedFiles = FileClassifier.classifyScoredFiles(scoredFiles);
 
         final var report = new Report(
@@ -34,7 +37,8 @@ public class ReportService {
                 classifiedFiles.getFilesToCompress().stream().map(file -> mapper.mapToReport(file))
                         .collect(Collectors.toList()),
                 classifiedFiles.getFilesToDelete().stream().map(file -> mapper.mapToReport(file))
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                fileManager.getFileStructure().getFileCount()
         );
 
         repository.save(report);

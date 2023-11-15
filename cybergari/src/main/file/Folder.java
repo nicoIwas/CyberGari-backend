@@ -21,6 +21,11 @@ public class Folder extends Storage {
         return storages.stream().map(Storage::getSize).reduce(0.0, Double::sum);
     }
 
+    @Override
+    public int getFileCount() {
+        return storages.stream().mapToInt(Storage::getFileCount).sum();
+    }
+
     public Set<Storage> getStorages() {
         return storages;
     }
