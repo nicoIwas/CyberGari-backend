@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,7 +83,7 @@ public class LocalFileReader {
                 att.creationTime().toInstant(),
                 att.lastModifiedTime().toInstant(),
                 getFileExtension(f),
-                extraMetaData.map(metaData -> new Priority(metaData.getTags())).orElse(null),
+                new Priority(extraMetaData.map(LocalFileMetaData::getTags).orElse(Collections.emptyList())),
                 extraMetaData.map(LocalFileMetaData::isCompressed).orElse(false)
         );
     }
