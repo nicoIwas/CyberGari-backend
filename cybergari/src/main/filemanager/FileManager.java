@@ -5,6 +5,7 @@ import main.file.Folder;
 
 import java.util.Collection;
 
+
 public interface FileManager {
     Collection<File> getAllFiles();
     Folder getFileStructure();

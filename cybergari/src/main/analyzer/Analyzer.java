@@ -2,6 +2,7 @@ package main.analyzer;
 
 import main.analyzer.judge.JudgePackage;
 import main.analyzer.judge.absolute.AbsoluteJudge;
+import main.analyzer.judge.multiplier.MultiplierJudge;
 import main.analyzer.judge.score.ScoreJudge;
 import main.file.File;
 
@@ -13,10 +14,12 @@ import java.util.stream.Collectors;
 public class Analyzer {
     private final List<AbsoluteJudge> absoluteJudges;
     private final List<ScoreJudge> scoreJudges;
+    private final List<MultiplierJudge> multiplierJudges;
 
     public Analyzer(final JudgePackage judgePackage) {
         this.absoluteJudges = judgePackage.getAbsoluteJudges();
         this.scoreJudges = judgePackage.getScoreJudges();
+        this.multiplierJudges = judgePackage.getMultiplierJudges();
     }
 
     public List<ScoredFile> analyze(final Collection<File> files) {
@@ -24,7 +27,7 @@ public class Analyzer {
         final var toAnalyse = getAnalysableFiles(files);
 
         for(final var file : toAnalyse) {
-            final var score = getFileScore(file);
+            final var score = (int)(getFileScore(file) * getFileMultiplier(file));
             result.add(new ScoredFile(file, score));
         }
 
@@ -47,6 +50,15 @@ public class Analyzer {
 
         for(final var judge : scoreJudges)
             result += judge.judgeFile(file);
+
+        return result;
+    }
+
+    private float getFileMultiplier(final File file){
+        float result = 1;
+
+        for(final var judge : multiplierJudges)
+            result *= judge.judgeFile(file);
 
         return result;
     }

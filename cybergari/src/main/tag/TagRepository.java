@@ -1,7 +1,10 @@
 package main.tag;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Set;
 
+@Repository
 public class TagRepository {
     public Set<Tag> findByUserId(final String userId) {
         return Set.of(

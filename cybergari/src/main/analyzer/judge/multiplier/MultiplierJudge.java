@@ -1,4 +1,4 @@
-package main.analyzer.judge.score;
+package main.analyzer.judge.multiplier;
 
 import main.file.File;
 import main.file.Storage;
@@ -7,6 +7,6 @@ import main.file.Storage;
  * Used to give a file a partial score that will be summed with others and used to
  * classify the file
  */
-public interface ScoreJudge {
-    int judgeFile(File toJudge);
+public interface MultiplierJudge {
+    float judgeFile(File toJudge);
 }
