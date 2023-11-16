@@ -6,7 +6,7 @@ public class PriorityJudge implements MultiplierJudge{
 
     @Override
     public float judgeFile(final File toJudge) {
-        if (toJudge.getPriority() != null)
+        if (toJudge.getPriority() == null)
             return 1;
 
         return 10000;
