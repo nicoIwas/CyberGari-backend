@@ -10,8 +10,8 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileClassifier {
-    private static final int COMPRESS_THRESHOLD = 500;
-    private static final int DELETE_THRESHOLD = 1500;
+    public static final int COMPRESS_THRESHOLD = 500;
+    public static final int DELETE_THRESHOLD = 1500;
 
     public static ClassificationResult classifyScoredFiles(final List<ScoredFile> scoredFiles) {
         final var toCompress = new LinkedList<File>();
