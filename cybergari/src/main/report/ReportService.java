@@ -51,11 +51,11 @@ public class ReportService {
     }
 
     public List<String> executeReport(final ReportConfirmation report) {
-        final var latestReportId = repository.getLatestReportForUser(report.userId());
-
-        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.reportId())) {
-            throw new InvalidReportForUser(report.reportId(), report.userId());
-        }
+//        final var latestReportId = repository.getLatestReportForUser(report.userId());
+//
+//        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.reportId())) {
+//            throw new InvalidReportForUser(report.reportId(), report.userId());
+//        }
 
         final var oldFolderSize = fileManager.getFileStructure().getSize();
         final var invalidFiles = Stream.concat(
