@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 @Component
 public class LocalFileManager implements FileManager {
-    private final LocalFileReader reader;
+    private LocalFileReader reader;
     private final Compressor compressor;
 
 
@@ -19,10 +19,6 @@ public class LocalFileManager implements FileManager {
         this.reader = new LocalFileReader(LocalFileSettings.FOLDER);
         this.compressor = compressor;
     }
-//    public LocalFileManager(final Compressor compressor, final String rootPath) {
-//        this.reader = new LocalFileReader(rootPath);
-//        this.compressor = compressor;
-//    }
 
     @Override
     public Collection<File> getAllFiles() {
@@ -71,5 +67,10 @@ public class LocalFileManager implements FileManager {
     @Override
     public void persistMetadata(final Collection<File> toUpdate) {
         reader.persistMetadata(toUpdate);
+    }
+
+    @Override
+    public void refresh() {
+        this.reader = new LocalFileReader(LocalFileSettings.FOLDER);
     }
 }
