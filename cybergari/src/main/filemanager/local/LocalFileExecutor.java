@@ -15,13 +15,13 @@ import java.util.Map;
 
 import static main.filemanager.local.LocalFileMetaDataManager.METADATA_FILE_NAME;
 
-public class LocalFileReader {
+public class LocalFileExecutor {
     private final LocalFileMetaDataManager localFileMetaDataManager;
     private final FileStructureMetadata structureMetadata;
     private final Map<String, String> filePathCache;
     private final LocalFileMetaDataMapper mapper;
 
-    public LocalFileReader(final String rootPath) {
+    public LocalFileExecutor(final String rootPath) {
         this.filePathCache = new HashMap<>();
         this.localFileMetaDataManager = new LocalFileMetaDataManager(rootPath);
 
@@ -101,6 +101,12 @@ public class LocalFileReader {
     private String getFileId(final File file) {
         final var filePath = file.getAbsolutePath();
         return filePath.substring(0, filePath.lastIndexOf(".")).hashCode() + "";
+    }
+
+    public boolean deleteFile(final String fileId) {
+        final String filePath = getFilePathFromId(fileId);
+        final File toDelete = new File(filePath);
+        return toDelete.delete();
     }
 
     public void persistMetadata(final Collection<main.file.File> toUpdate) {

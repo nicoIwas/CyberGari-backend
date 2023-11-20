@@ -28,7 +28,7 @@ public class LocalFileMetaDataManager {
             final var metaDataList = (List<LocalFileMetaData>) reader.readObject();
             return metaDataList.stream().collect(Collectors.toMap(LocalFileMetaData::getFileId, Function.identity()));
         } catch (final Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return new HashMap<>();
@@ -38,7 +38,7 @@ public class LocalFileMetaDataManager {
         try (ObjectOutputStream writer = new ObjectOutputStream(Files.newOutputStream(Paths.get(this.metadataPath)))) {
             writer.writeObject(new LinkedList<>(filesMetadata.values()));
         } catch (final Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
