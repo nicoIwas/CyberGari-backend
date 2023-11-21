@@ -3,8 +3,8 @@ package main.file;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import main.tag.Priority;
-import main.tag.Tag;
+import main.tag.vos.Priority;
+import main.tag.vos.Tag;
 
 import java.time.Instant;
 import java.util.List;

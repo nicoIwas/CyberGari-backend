@@ -1,19 +1,20 @@
 package main.tag;
 
-import main.storagesizelog.vo.StorageSizeLog;
-import main.storagesizelog.vo.StorageSizeLogId;
+import main.tag.vos.TagEntity;
+import main.tag.vos.TagEntityId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
 @Repository
 public interface TagRepository extends JpaRepository<TagEntity, TagEntityId> {
-    default Set<Tag> findByUserId(final String userId) {
-        return Set.of(
-                new Tag("LOW_PRI", 10, "low"),
-                new Tag("MED_PRI", 5, "med"),
-                new Tag("HIGH_PRI", 0, "high")
-        );
-    }
+
+    @Query("""
+        FROM TagEntity te
+        WHERE te.tagEntityId.userId = :userId
+    """)
+    Set<TagEntity> findByUserId(final String userId);
+
 }

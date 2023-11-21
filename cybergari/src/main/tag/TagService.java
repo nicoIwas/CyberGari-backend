@@ -3,12 +3,12 @@ package main.tag;
 import lombok.RequiredArgsConstructor;
 import main.file.File;
 import main.filemanager.FileManager;
-import main.tag.vos.FileTagUpdateVO;
+import main.tag.vos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -16,14 +16,16 @@ import java.util.stream.Collectors;
 @Service
 public class TagService {
     @Autowired
-    private final TagRepository tagRepository;
+    TagEntityMapper tagEntityMapper;
     @Autowired
-    private final FileManager fileManager;
+    TagRepository tagRepository;
+    @Autowired
+    FileManager fileManager;
 
     public void updateFileTags(final List<FileTagUpdateVO> request, final String userId) {
         final var validFiles = fileManager.getAllFiles().stream()
                 .collect(Collectors.toMap(File::getId, Function.identity()));
-        final var validTags = tagRepository.findByUserId(userId);
+        final var validTags = findAll(userId);
 
         final var filesToUpdate = request.stream()
                 .filter(f -> validFiles.containsKey(f.getFileId()))
@@ -52,8 +54,9 @@ public class TagService {
         tagRepository.deleteById(tagToDelete);
     }
 
-    public void findAll(final String userId){
-        tagRepository.findByUserId(userId);
+    public Set<Tag> findAll(final String userId){
+        return tagRepository.findByUserId(userId).stream()
+                .map(tag -> tagEntityMapper.toDomain(tag)).collect(Collectors.toSet());
     }
 
 }

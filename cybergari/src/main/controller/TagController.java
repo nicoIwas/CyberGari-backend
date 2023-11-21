@@ -1,14 +1,13 @@
 package main.controller;
 
-import main.report.ReportService;
-import main.report.vo.Report;
-import main.tag.Tag;
+import main.tag.vos.Tag;
 import main.tag.TagService;
 import main.tag.vos.FileTagUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class TagController {
@@ -21,7 +20,7 @@ public class TagController {
     }
 
     @GetMapping("/tags/{userId}")
-    public void findAll(@PathVariable final String userId){ service.findAll(userId);}
+    public Set<Tag> findAll(@PathVariable final String userId){ return service.findAll(userId);}
 
     @DeleteMapping("/tags/{userId}/{tagName}")
     public void deleteTag(@PathVariable final String tagName,@PathVariable final String userId){ service.delete(tagName, userId);}

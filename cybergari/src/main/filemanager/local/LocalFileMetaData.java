@@ -2,7 +2,7 @@ package main.filemanager.local;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import main.tag.Tag;
+import main.tag.vos.Tag;
 
 import java.io.Serializable;
 import java.util.List;

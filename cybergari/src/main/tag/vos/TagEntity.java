@@ -1,4 +1,4 @@
-package main.tag;
+package main.tag.vos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import java.time.Instant;
 
 @Entity
 @Data
