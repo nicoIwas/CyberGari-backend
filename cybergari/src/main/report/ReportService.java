@@ -8,6 +8,7 @@ import main.file.File;
 import main.filemanager.FileManager;
 import main.report.vo.Report;
 import main.report.vo.ReportConfirmation;
+import main.storagesizelog.StorageSizeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,15 @@ import java.util.stream.Stream;
 @Service
 public class ReportService {
     @Autowired
-    private FileManager fileManager;
+    FileManager fileManager;
     @Autowired
-    private JudgeService judgeService;
+    JudgeService judgeService;
     @Autowired
-    private ReportRepository repository;
+    StorageSizeLogService storageSizeLogService;
     @Autowired
-    private FIleReportMapper mapper;
+    ReportRepository repository;
+    @Autowired
+    FileReportMapper mapper;
 
     public Report generateReportForUser(final String userId) {
         final var analyser = new Analyzer(judgeService.findJudgesForUser(userId));
@@ -48,15 +51,22 @@ public class ReportService {
     }
 
     public List<String> executeReport(final ReportConfirmation report) {
-        final var latestReportId = repository.getLatestReportForUser(report.getUserId());
+//        final var latestReportId = repository.getLatestReportForUser(report.userId());
+//
+//        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.reportId())) {
+//            throw new InvalidReportForUser(report.reportId(), report.userId());
+//        }
 
-        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.getReportId())) {
-            throw new InvalidReportForUser(report.getReportId(), report.getUserId());
-        }
-
-        return Stream.concat(
-                report.getFilesToCompress().stream().filter(file -> !fileManager.compressFile(file)),
-                report.getFilesToDelete().stream().filter(file -> !fileManager.deleteFile(file))
+        final var oldFolderSize = fileManager.getFileStructure().getSize();
+        final var invalidFiles = Stream.concat(
+                report.filesToCompress().stream().filter(file -> !fileManager.compressFile(file)),
+                report.filesToDelete().stream().filter(file -> !fileManager.deleteFile(file))
         ).collect(Collectors.toList());
+
+        fileManager.refresh();
+        final var currentFolderSize = fileManager.getFileStructure().getSize();
+        storageSizeLogService.save(oldFolderSize, currentFolderSize, report.userId());
+
+        return invalidFiles;
     }
 }
