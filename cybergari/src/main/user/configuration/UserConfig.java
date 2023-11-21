@@ -13,5 +13,6 @@ public class UserConfig {
     private boolean autCompression;
     private Periodicity periodicityScale;
     private Integer periodicityTime;
-    private String maxLimit;
+    private String maxLimitScale;
+    private Integer maxLimitValue;
 }
