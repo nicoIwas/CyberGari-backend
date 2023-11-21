@@ -14,9 +14,13 @@ public class TagController {
 
     @Autowired
     private TagService service;
-    @PutMapping("/tags/{userId}")
+    @PutMapping("/tags/files/{userId}")
     public void updateFileTags(@RequestBody final List<FileTagUpdateVO> request, @PathVariable final String userId) {
         service.updateFileTags(request, userId);
     }
 
+//    public void createFileTags
+//    public void findFileTags
+//    public void deleteFileTags
+//    public void getFileTags(?)
 }
