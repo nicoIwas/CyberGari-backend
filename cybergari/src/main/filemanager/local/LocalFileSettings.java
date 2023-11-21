@@ -1,7 +1,7 @@
 package main.filemanager.local;
 
 public class LocalFileSettings {
-    private static final SO soInUse = SO.WINDOWS;
+    private static final SO soInUse = SO.LINUX;
     public static final String SEPARATOR = soInUse == SO.WINDOWS ? "\\" : "/";
     public static final String FOLDER = soInUse == SO.WINDOWS ? "C:\\Users\\Pedro\\Desktop\\EQ_ST" : "/home/nicolinux/Desktop/Faculdade/terceiroAno/sextoSemestre/RP2/driver_test";
 

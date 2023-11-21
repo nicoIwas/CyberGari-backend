@@ -1,16 +1,20 @@
 package main.tag;
 
+import main.tag.vos.TagEntity;
+import main.tag.vos.TagEntityId;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
 @Repository
-public class TagRepository {
-    public Set<Tag> findByUserId(final String userId) {
-        return Set.of(
-                new Tag("LOW_PRI", 10, "low"),
-                new Tag("MED_PRI", 5, "med"),
-                new Tag("HIGH_PRI", 0, "high")
-        );
-    }
+public interface TagRepository extends JpaRepository<TagEntity, TagEntityId> {
+
+    @Query("""
+        FROM TagEntity te
+        WHERE te.tagEntityId.userId = :userId
+    """)
+    Set<TagEntity> findByUserId(final String userId);
+
 }

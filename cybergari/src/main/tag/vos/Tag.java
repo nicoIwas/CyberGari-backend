@@ -1,4 +1,4 @@
-package main.tag;
+package main.tag.vos;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

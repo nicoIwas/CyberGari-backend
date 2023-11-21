@@ -2,7 +2,7 @@ package main.filemanager.local;
 
 import main.file.FileStructureMetadata;
 import main.file.Folder;
-import main.tag.Priority;
+import main.tag.vos.Priority;
 
 import java.io.File;
 import java.io.IOException;
