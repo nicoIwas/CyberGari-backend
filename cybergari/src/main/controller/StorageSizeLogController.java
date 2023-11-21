@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 public class StorageSizeLogController {
-    private static final int WINDOW_SIZE = 1;
+    private static final int WINDOW_SIZE = 30;
 
     @Autowired
     StorageSizeLogService service;
@@ -22,6 +22,6 @@ public class StorageSizeLogController {
     public List<StorageSizeLogVO> getStorageSizeLogs(@PathVariable final String userId) {
         final var now = Instant.now();
 
-        return service.getLogs(userId, now.minus(WINDOW_SIZE, ChronoUnit.MONTHS), now);
+        return service.getLogs(userId, now.minus(WINDOW_SIZE, ChronoUnit.DAYS), now);
     }
 }
