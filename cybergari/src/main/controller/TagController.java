@@ -2,6 +2,7 @@ package main.controller;
 
 import main.report.ReportService;
 import main.report.vo.Report;
+import main.tag.Tag;
 import main.tag.TagService;
 import main.tag.vos.FileTagUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,12 @@ public class TagController {
         service.updateFileTags(request, userId);
     }
 
-//    public void createFileTags
-//    public void findFileTags
-//    public void deleteFileTags
-//    public void getFileTags(?)
+    @GetMapping("/tags/{userId}")
+    public void findAll(@PathVariable final String userId){ service.findAll(userId);}
+
+    @DeleteMapping("/tags/{userId}/{tagName}")
+    public void deleteTag(@PathVariable final String tagName,@PathVariable final String userId){ service.delete(tagName, userId);}
+
+    @PostMapping("/tags/{userId}")
+    public void saveTag(@RequestBody final Tag tag, @PathVariable final String userId){ service.save(tag, userId);}
 }
