@@ -27,6 +27,7 @@ public class StorageSizeLogService {
     }
 
     public List<StorageSizeLogVO> getLogs(final String userId, final Instant startWindow, final Instant endWindow) {
-        return repository.findAll().stream().map(log -> mapper.toVo(log)).collect(Collectors.toList());
+        return repository.findByUserIdAndTimestamp(userId, startWindow, endWindow).stream()
+                .map(log -> mapper.toVo(log)).collect(Collectors.toList());
     }
 }
