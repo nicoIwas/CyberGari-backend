@@ -5,6 +5,7 @@ import main.file.File;
 import main.filemanager.FileManager;
 import main.tag.vos.FileTagUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,4 +41,19 @@ public class TagService {
 
         fileManager.persistMetadata(filesToUpdate);
     }
+
+    public void save(final Tag tag, final String userId){
+        final var tagToSave = new TagEntity(userId, tag.getName(), tag.getTagColor(), tag.getTagPriority());
+        tagRepository.save(tagToSave);
+    }
+
+    public void delete(final String tagName, final String userId){
+        final var tagToDelete = new TagEntityId(userId, tagName);
+        tagRepository.deleteById(tagToDelete);
+    }
+
+    public void findAll(final String userId){
+        tagRepository.findByUserId(userId);
+    }
+
 }
