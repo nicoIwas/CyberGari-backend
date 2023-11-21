@@ -1,42 +1,36 @@
 package main.filemanager.local;
 
-import lombok.Builder;
 import main.compressor.Compressor;
 import main.filemanager.FileManager;
 import main.file.File;
 import main.file.Folder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 @Component
 public class LocalFileManager implements FileManager {
-    private final LocalFileReader reader;
+    private LocalFileExecutor executor;
     private final Compressor compressor;
 
 
     public LocalFileManager(final Compressor compressor) {
-        this.reader = new LocalFileReader(LocalFileSettings.FOLDER);
+        this.executor = new LocalFileExecutor(LocalFileSettings.FOLDER);
         this.compressor = compressor;
     }
-//    public LocalFileManager(final Compressor compressor, final String rootPath) {
-//        this.reader = new LocalFileReader(rootPath);
-//        this.compressor = compressor;
-//    }
 
     @Override
     public Collection<File> getAllFiles() {
-        return reader.getAllFilesMetadata();
+        return executor.getAllFilesMetadata();
     }
 
     @Override
     public Folder getFileStructure() {
-        return reader.getFileStructure();
+        return executor.getFileStructure();
     }
 
     @Override
     public boolean compressFile(final String fileId) {
-        final var filePath = reader.getFilePathFromId(fileId);
+        final var filePath = executor.getFilePathFromId(fileId);
 
         try {
             compressor.compress(filePath);
@@ -50,7 +44,7 @@ public class LocalFileManager implements FileManager {
 
     @Override
     public boolean uncompressFile(final String fileId) {
-        final var filePath = reader.getFilePathFromId(fileId);
+        final var filePath = executor.getFilePathFromId(fileId);
 
         try {
             compressor.uncompress(filePath);
@@ -64,12 +58,16 @@ public class LocalFileManager implements FileManager {
 
     @Override
     public boolean deleteFile(final String fileId) {
-        // TODO: implement
-        return true;
+        return executor.deleteFile(fileId);
     }
 
     @Override
     public void persistMetadata(final Collection<File> toUpdate) {
-        reader.persistMetadata(toUpdate);
+        executor.persistMetadata(toUpdate);
+    }
+
+    @Override
+    public void refresh() {
+        this.executor = new LocalFileExecutor(LocalFileSettings.FOLDER);
     }
 }

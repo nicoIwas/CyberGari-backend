@@ -13,4 +13,5 @@ public interface FileManager {
     boolean uncompressFile(String fileId);
     boolean deleteFile(String fileId);
     void persistMetadata(Collection<File> toUpdate);
+    void refresh();
 }
