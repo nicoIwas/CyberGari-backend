@@ -13,12 +13,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin
     @GetMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public UserData getUserById(@PathVariable final String userId) {
         return userService.findUserById(userId);
     }
 
+    @CrossOrigin
     @PutMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public UserData updateUser(@RequestBody final UserData userData) {
