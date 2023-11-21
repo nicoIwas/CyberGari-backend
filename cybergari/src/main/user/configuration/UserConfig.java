@@ -15,4 +15,5 @@ public class UserConfig {
     private Integer periodicityTime;
     private String maxLimitScale;
     private Integer maxLimitValue;
+    private boolean lastSeen;
 }
