@@ -16,4 +16,5 @@ public class UserConfig {
     private String maxLimitScale;
     private Integer maxLimitValue;
     private boolean lastSeen;
+    private boolean otherData;
 }
