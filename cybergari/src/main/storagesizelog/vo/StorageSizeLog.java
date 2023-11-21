@@ -19,7 +19,7 @@ public class StorageSizeLog {
     private String userId;
 
     @Id
-    @Column(name = "report_timestamp ")
+    @Column(name = "report_timestamp")
     private Instant reportTimestamp;
 
     @Column(name = "pre_optimization_size")
