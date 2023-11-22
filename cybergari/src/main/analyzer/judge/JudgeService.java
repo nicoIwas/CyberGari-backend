@@ -12,8 +12,11 @@ public class JudgeService {
 
         return new JudgePackage(
                 List.of(),
-                List.of(new SizeScoreJudge(0, (float)0.2)),
-                List.of(new PriorityJudge())
+                List.of(new SizeScoreJudge(30000, (float) 0.02)),
+                List.of()
         );
     }
 }
+
+// 30 - 50 compactar
+// 50+ deletar
