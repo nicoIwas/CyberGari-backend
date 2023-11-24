@@ -25,6 +25,7 @@ public class ReportController {
     }
 
     @PutMapping("/reports")
+    @CrossOrigin
     public List<String> executeReport(@RequestBody final ReportConfirmation request) {
         return service.executeReport(request);
     }
