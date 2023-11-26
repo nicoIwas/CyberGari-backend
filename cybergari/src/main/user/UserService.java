@@ -1,5 +1,6 @@
 package main.user;
 
+import lombok.extern.slf4j.Slf4j;
 import main.controller.response.LoginResponse;
 import main.infra.client.GoogleAuthClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired

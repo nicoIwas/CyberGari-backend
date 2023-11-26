@@ -1,8 +1,13 @@
 package main.user.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Getter
+@Setter
 public class UserConfig {
 
     private boolean fileExtension;

@@ -1,5 +1,6 @@
 package main.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import main.controller.response.LoginResponse;
 import main.user.UserData;
 import main.user.UserService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -17,13 +19,16 @@ public class UserController {
     @GetMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public UserData getUserById(@PathVariable final String userId) {
+        log.info("Getting user: {}", userId);
         return userService.findUserById(userId);
     }
 
-    @CrossOrigin
+
     @PutMapping("/users")
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public UserData updateUser(@RequestBody final UserData userData) {
+        log.info("Updating data to user: {}", userData);
         return userService.updateUser(userData);
     }
 
