@@ -1,8 +1,6 @@
 package main.analyzer.judge;
 
-import main.analyzer.judge.multiplier.PriorityJudge;
 import main.analyzer.judge.score.SizeScoreJudge;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +15,3 @@ public class JudgeService {
         );
     }
 }
-
-// 30 - 50 compactar
-// 50+ deletar

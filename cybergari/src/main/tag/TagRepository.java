@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Repository
 public interface TagRepository extends JpaRepository<TagEntity, TagEntityId> {
-
     @Query("""
         FROM TagEntity te
         WHERE te.tagEntityId.userId = :userId
