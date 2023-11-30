@@ -1,10 +1,6 @@
 package main.report;
 
-import main.analyzer.Analyzer;
-import main.analyzer.classifier.FileClassifier;
-import main.analyzer.judge.JudgeService;
-import main.exception.InvalidReportForUser;
-import main.file.File;
+import main.analyzer.AnalyserService;
 import main.filemanager.FileManager;
 import main.report.vo.Report;
 import main.report.vo.ReportConfirmation;
@@ -12,7 +8,7 @@ import main.storagesizelog.StorageSizeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,7 +19,7 @@ public class ReportService {
     @Autowired
     FileManager fileManager;
     @Autowired
-    JudgeService judgeService;
+    AnalyserService analyserService;
     @Autowired
     StorageSizeLogService storageSizeLogService;
     @Autowired
@@ -32,16 +28,14 @@ public class ReportService {
     FileReportMapper mapper;
 
     public Report generateReportForUser(final String userId) {
-        final var analyser = new Analyzer(judgeService.findJudgesForUser(userId));
-        Collection<File> allFiles = fileManager.getAllFiles();
-        final var scoredFiles = analyser.analyze(allFiles);
-        final var classifiedFiles = FileClassifier.classifyScoredFiles(scoredFiles);
+        final var allFiles = fileManager.getAllFiles();
+        final var classifiedFiles = analyserService.analyseFiles(new HashSet<>(allFiles), userId);
 
         final var report = new Report(
                 UUID.randomUUID().toString(),
-                classifiedFiles.getFilesToCompress().stream().map(file -> mapper.mapToReport(file))
+                classifiedFiles.filesToCompress().stream().map(file -> mapper.mapToReport(file))
                         .collect(Collectors.toList()),
-                classifiedFiles.getFilesToDelete().stream().map(file -> mapper.mapToReport(file))
+                classifiedFiles.filesToDelete().stream().map(file -> mapper.mapToReport(file))
                         .collect(Collectors.toList()),
                 fileManager.getFileStructure().getFileCount()
         );
@@ -51,11 +45,14 @@ public class ReportService {
     }
 
     public List<String> executeReport(final ReportConfirmation report) {
-//        final var latestReportId = repository.getLatestReportForUser(report.userId());
-//
-//        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.reportId())) {
-//            throw new InvalidReportForUser(report.reportId(), report.userId());
-//        }
+        /*
+        TODO: remove comment once report cache is implemented
+        final var latestReportId = repository.getLatestReportForUser(report.userId());
+
+        if (latestReportId.isEmpty() || !latestReportId.get().equals(report.reportId())) {
+            throw new InvalidReportForUser(report.reportId(), report.userId());
+        }
+         */
 
         final var oldFolderSize = fileManager.getFileStructure().getSize();
         final var invalidFiles = Stream.concat(

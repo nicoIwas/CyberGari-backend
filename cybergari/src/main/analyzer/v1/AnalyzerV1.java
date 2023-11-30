@@ -1,6 +1,5 @@
-package main.analyzer;
+package main.analyzer.v1;
 
-import main.analyzer.judge.JudgePackage;
 import main.analyzer.judge.absolute.AbsoluteJudge;
 import main.analyzer.judge.multiplier.MultiplierJudge;
 import main.analyzer.judge.score.ScoreJudge;
@@ -11,15 +10,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Analyzer {
+public class AnalyzerV1 {
     private final List<AbsoluteJudge> absoluteJudges;
     private final List<ScoreJudge> scoreJudges;
     private final List<MultiplierJudge> multiplierJudges;
 
-    public Analyzer(final JudgePackage judgePackage) {
-        this.absoluteJudges = judgePackage.getAbsoluteJudges();
-        this.scoreJudges = judgePackage.getScoreJudges();
-        this.multiplierJudges = judgePackage.getMultiplierJudges();
+    public AnalyzerV1(final JudgePackage judgePackage) {
+        this.absoluteJudges = judgePackage.absoluteJudges();
+        this.scoreJudges = judgePackage.scoreJudges();
+        this.multiplierJudges = judgePackage.multiplierJudges();
     }
 
     public List<ScoredFile> analyze(final Collection<File> files) {

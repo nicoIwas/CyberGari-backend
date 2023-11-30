@@ -1,4 +1,4 @@
-package main.analyzer;
+package main.analyzer.v1;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

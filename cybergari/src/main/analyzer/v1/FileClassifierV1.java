@@ -1,15 +1,15 @@
-package main.analyzer.classifier;
+package main.analyzer.v1;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import main.analyzer.ScoredFile;
+import main.analyzer.ClassificationResult;
 import main.file.File;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class FileClassifier {
+public class FileClassifierV1 {
     public static final int COMPRESS_THRESHOLD = 500;
     public static final int DELETE_THRESHOLD = 1500;
 
