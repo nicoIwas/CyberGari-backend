@@ -4,5 +4,5 @@ import main.analyzer.v2.PartialClassification;
 import main.file.File;
 
 public interface PartialJudge {
-    PartialClassification judgeFile(File file, int bias);
+    PartialClassification judgeFile(File file, double bias);
 }

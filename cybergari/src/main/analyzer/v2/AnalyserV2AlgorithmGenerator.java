@@ -33,7 +33,7 @@ public class AnalyserV2AlgorithmGenerator {
         }
     }
 
-    public static int calculateBias(final File file, final AnalyserConfiguration configuration) {
+    public static double calculateBias(final File file, final AnalyserConfiguration configuration) {
         if (!configuration.tags()) {
             return 0;
         }

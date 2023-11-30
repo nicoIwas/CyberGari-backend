@@ -11,7 +11,7 @@ public class MaxTagPriorityPartialJudge implements PartialJudge {
     }
 
     @Override
-    public PartialClassification judgeFile(final File file, final int bias) {
+    public PartialClassification judgeFile(final File file, final double bias) {
         if (file.getPriority() == null) {
             return PartialClassification.INCONCLUSIVE;
         }
