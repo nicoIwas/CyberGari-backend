@@ -44,7 +44,7 @@ public class AnalyserServiceV2 implements AnalyserService {
                 } else if (result == PartialClassification.DELETE) {
                     toDelete.add(file);
                     break;
-                } else if (result == PartialClassification.IGNORE) {
+                } else if (result == PartialClassification.NO_ACTION) {
                     break;
                 }
             }

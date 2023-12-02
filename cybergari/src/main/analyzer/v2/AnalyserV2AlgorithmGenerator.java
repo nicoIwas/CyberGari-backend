@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.analyzer.judge.partial.MaxTagPriorityPartialJudge.maxTagPriority;
+import static main.analyzer.judge.partial.OldCompressedPartialJudge.oldCompressed;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyserV2AlgorithmGenerator {
@@ -18,6 +19,7 @@ public class AnalyserV2AlgorithmGenerator {
         final Algorithm algorithm = new Algorithm();
 
         algorithm.addIf(maxTagPriority(), configuration.tags());
+        algorithm.addIf(oldCompressed(), configuration.lastSeen()); // TODO: use createdAt permission
 
         return algorithm.list;
     }
@@ -33,11 +35,20 @@ public class AnalyserV2AlgorithmGenerator {
         }
     }
 
+    private static final double MAX_BIAS = 10;
     public static double calculateBias(final File file, final AnalyserConfiguration configuration) {
         if (!configuration.tags()) {
             return 0;
         }
 
-        return file.getPriority() != null ? file.getPriority().getPriority() : 0;
+        if (file.getPriority() == null) {
+            return 0;
+        }
+        return file.getPriority().getPriority() == 0 ?
+                1 :
+                (MAX_BIAS + 1 - file.getPriority().getPriority()) / MAX_BIAS;
+
+        // The +1 means that, even if the priority is 0, it will still be greater than if the file did not
+        // have a tag
     }
 }
