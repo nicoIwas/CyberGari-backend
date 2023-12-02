@@ -81,6 +81,7 @@ public class LocalFileExecutor {
                 getFileName(f),
                 att.size(),
                 att.creationTime().toInstant(),
+                att.lastAccessTime().toInstant(),
                 att.lastModifiedTime().toInstant(),
                 getFileExtension(f),
                 new Priority(extraMetaData.map(LocalFileMetaData::getTags).orElse(Collections.emptyList())),

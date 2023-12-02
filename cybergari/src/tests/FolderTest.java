@@ -31,6 +31,6 @@ public class FolderTest {
     }
 
     private File createFileWithSize(final double size) {
-        return new File("id", "aFile", size, Instant.now(), Instant.now(), ".txt", null, false);
+        return new File("id", "aFile", size, Instant.now(), Instant.now(), Instant.now(), ".txt", null, false);
     }
 }

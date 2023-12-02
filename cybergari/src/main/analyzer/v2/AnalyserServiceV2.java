@@ -38,7 +38,7 @@ public class AnalyserServiceV2 implements AnalyserService {
             for (var judge : judges) {
                 final var result = judge.judgeFile(file, calculateBias(file, configuration));
 
-                if (result == PartialClassification.COMPRESS) {
+                if (result == PartialClassification.COMPRESS && !file.isCompressed()) {
                     toCompress.add(file);
                     break;
                 } else if (result == PartialClassification.DELETE) {

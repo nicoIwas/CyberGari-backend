@@ -3,9 +3,7 @@ package main.analyzer.judge.partial;
 import main.analyzer.v2.PartialClassification;
 import main.file.File;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
+import static main.analyzer.judge.JudgeUtils.daysSince;
 import static main.analyzer.v2.PartialClassification.DELETE;
 import static main.analyzer.v2.PartialClassification.INCONCLUSIVE;
 
@@ -23,8 +21,7 @@ public class OldCompressedPartialJudge implements PartialJudge {
             return INCONCLUSIVE;
         }
 
-        final var daysSince = ChronoUnit.DAYS.between(Instant.now(), file.getCreatedTime());
-        if (daysSince >= MIN_DAYS + MAX_BIAS * bias) {
+        if (daysSince(file.getCreatedTime()) >= MIN_DAYS + MAX_BIAS * bias) {
             return DELETE;
         }
 

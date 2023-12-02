@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.analyzer.judge.partial.MaxTagPriorityPartialJudge.maxTagPriority;
+import static main.analyzer.judge.partial.OldAndLargePartialJudge.oldAndLarge;
 import static main.analyzer.judge.partial.OldCompressedPartialJudge.oldCompressed;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,6 +21,7 @@ public class AnalyserV2AlgorithmGenerator {
 
         algorithm.addIf(maxTagPriority(), configuration.tags());
         algorithm.addIf(oldCompressed(), configuration.lastSeen()); // TODO: use createdAt permission
+        algorithm.addIf(oldAndLarge(), configuration.lastSeen());
 
         return algorithm.list;
     }

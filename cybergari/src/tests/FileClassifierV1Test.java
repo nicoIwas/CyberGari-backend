@@ -39,8 +39,17 @@ public class FileClassifierV1Test {
         assertEquals(classificationResult.filesToDelete().size(), 0);
     }
     private File createFile() {
-        return new File("id", "aFile", 10, Instant.now(), Instant.now(), ".txt", null, false);
+        final var now = Instant.now();
+        return new File(
+                "id",
+                "aFile",
+                10,
+                now,
+                now,
+                now,
+                ".txt",
+                null,
+                false
+        );
     }
-
-
 }

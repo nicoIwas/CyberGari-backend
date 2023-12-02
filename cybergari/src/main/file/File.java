@@ -16,6 +16,7 @@ public class File extends Storage {
     private final String name;
     private final double size;
     private final Instant createdTime;
+    private final Instant lastSeen;
     private final Instant modifiedTime;
     private final String extension;
     private Priority priority;
