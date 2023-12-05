@@ -1,8 +1,13 @@
 package main.user.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Getter
+@Setter
 public class UserConfig {
 
     private boolean fileExtension;
@@ -13,5 +18,8 @@ public class UserConfig {
     private boolean autCompression;
     private Periodicity periodicityScale;
     private Integer periodicityTime;
-    private String maxLimit;
+    private String maxLimitScale;
+    private Integer maxLimitValue;
+    private boolean lastSeen;
+    private boolean otherData;
 }

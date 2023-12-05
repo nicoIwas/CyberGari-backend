@@ -24,4 +24,9 @@ public class UserData {
     public UserData() {
 
     }
+
+    public UserData(String id, UserConfig userConfig) {
+        this.id = id;
+        this.userConfig = userConfig;
+    }
 }
