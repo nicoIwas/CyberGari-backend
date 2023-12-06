@@ -7,6 +7,7 @@ import main.analyzer.configuration.AnalyserConfigurationService;
 import main.analyzer.judge.partial.PartialJudge;
 import main.file.File;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import java.util.Set;
 import static main.analyzer.v2.AnalyserV2AlgorithmGenerator.calculateBias;
 import static main.analyzer.v2.AnalyserV2AlgorithmGenerator.generateAlgorithm;
 
+@Primary
 @Service
 public class AnalyserServiceV2 implements AnalyserService {
     @Autowired

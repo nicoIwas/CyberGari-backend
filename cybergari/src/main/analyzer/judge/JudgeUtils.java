@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JudgeUtils {
     public static long daysSince(final Instant date) {
-        return ChronoUnit.DAYS.between(Instant.now(), date);
+        return Math.abs(ChronoUnit.DAYS.between(date, Instant.now()));
     }
 
     public static double bytesToMB(final double bytes) {

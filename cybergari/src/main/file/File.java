@@ -8,6 +8,7 @@ import main.tag.vos.Tag;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Getter
@@ -36,11 +37,20 @@ public class File extends Storage {
     public void setTags(final List<Tag> tags) {
         this.priority = new Priority(tags);
     }
+
     public Integer getPriority() {
         if(priority == null || priority.getPriority() == null) {
             return null;
         }
 
         return  priority.getPriority();
+    }
+
+    public Map<String, Tag> getTags() {
+        if(priority == null) {
+            return Map.of();
+        }
+
+        return priority.getTags();
     }
 }

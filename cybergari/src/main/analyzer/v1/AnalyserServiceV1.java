@@ -4,13 +4,11 @@ import main.analyzer.AnalyserService;
 import main.analyzer.ClassificationResult;
 import main.analyzer.judge.score.SizeScoreJudge;
 import main.file.File;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
-@Primary
 @Service
 public class AnalyserServiceV1 implements AnalyserService {
     @Override

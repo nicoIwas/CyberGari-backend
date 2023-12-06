@@ -21,7 +21,7 @@ public class AnalyserV2AlgorithmGenerator {
 
         algorithm.addIf(maxTagPriority(), configuration.tags());
         algorithm.addIf(oldCompressed(), configuration.lastSeen()); // TODO: use createdAt permission
-        algorithm.addIf(oldAndLarge(), configuration.lastSeen());
+        algorithm.addIf(oldAndLarge(), configuration.lastSeen() && configuration.fileSize());
 
         return algorithm.list;
     }
@@ -46,9 +46,9 @@ public class AnalyserV2AlgorithmGenerator {
         if (file.getPriority() == null) {
             return 0;
         }
-        return file.getPriority().getPriority() == 0 ?
+        return file.getPriority() == 0 ?
                 1 :
-                (MAX_BIAS + 1 - file.getPriority().getPriority()) / MAX_BIAS;
+                (MAX_BIAS + 1 - file.getPriority()) / MAX_BIAS;
 
         // The +1 means that, even if the priority is 0, it will still be greater than if the file did not
         // have a tag

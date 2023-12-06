@@ -11,8 +11,8 @@ import static main.analyzer.v2.PartialClassification.INCONCLUSIVE;
 public class OldAndLargePartialJudge implements PartialJudge {
     private static final int MIN_DAYS = 30;
     private static final int MAX_BIAS_DAYS = 30;
-    private static final int MIN_MB = 50;
-    private static final int MAX_BIAS_MB = 50;
+    private static final int MIN_MB = 5;
+    private static final int MAX_BIAS_MB = 5;
 
     public static OldAndLargePartialJudge oldAndLarge() {
         return new OldAndLargePartialJudge();
