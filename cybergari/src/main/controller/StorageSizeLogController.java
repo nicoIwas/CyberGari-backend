@@ -10,6 +10,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class StorageSizeLogController {
@@ -29,15 +31,7 @@ public class StorageSizeLogController {
     }
 
     @PostMapping("/decompress/{userId}")
-    public List<String> uncompressFiles(@RequestBody final List<String> toUncompress, @PathVariable final String userId){
-
-        List<String> stillCompressed = new ArrayList<>();
-
-        for (String fileId : toUncompress) {
-            if(!fileService.uncompressFile(fileId)){
-                stillCompressed.add(fileId);
-            }
-        }
-        return stillCompressed;
+    public List<String> uncompressFiles(@RequestBody final List<String> toDecompress, @PathVariable final String userId) {
+        return toDecompress.stream().filter(fileId -> !fileService.uncompressFile(fileId)).toList();
     }
 }
