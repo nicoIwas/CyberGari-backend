@@ -36,4 +36,11 @@ public class File extends Storage {
     public void setTags(final List<Tag> tags) {
         this.priority = new Priority(tags);
     }
+    public Integer getPriority() {
+        if(priority == null || priority.getPriority() == null) {
+            return null;
+        }
+
+        return  priority.getPriority();
+    }
 }

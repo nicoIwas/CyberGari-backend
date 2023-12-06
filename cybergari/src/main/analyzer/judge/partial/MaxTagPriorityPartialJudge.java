@@ -16,7 +16,7 @@ public class MaxTagPriorityPartialJudge implements PartialJudge {
             return PartialClassification.INCONCLUSIVE;
         }
 
-        return file.getPriority().getPriority() == MAX_PRIORITY ?
+        return file.getPriority() == MAX_PRIORITY ?
                 PartialClassification.NO_ACTION :
                 PartialClassification.INCONCLUSIVE;
     }
