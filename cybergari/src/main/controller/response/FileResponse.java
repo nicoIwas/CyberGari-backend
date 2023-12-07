@@ -11,4 +11,5 @@ public class FileResponse {
     private final String name;
     private final String filePath;
     private final Instant modifiedTime;
+    private final String type;
 }

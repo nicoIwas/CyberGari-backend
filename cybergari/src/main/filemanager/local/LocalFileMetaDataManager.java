@@ -1,5 +1,7 @@
 package main.filemanager.local;
 
+import lombok.Getter;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
@@ -12,6 +14,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Getter
 public class LocalFileMetaDataManager {
     public static final String METADATA_FILE_NAME = "cybergari.metadata";
 
@@ -24,7 +27,7 @@ public class LocalFileMetaDataManager {
         System.out.println(filesMetadata.toString());
     }
 
-    private Map<String, LocalFileMetaData> getFilesMetadata() {
+    public Map<String, LocalFileMetaData> getFilesMetadata() {
         try (ObjectInputStream reader = new ObjectInputStream(Files.newInputStream(Paths.get(this.metadataPath)))) {
             final var metaDataList = (List<LocalFileMetaData>) reader.readObject();
             return metaDataList.stream().collect(Collectors.toMap(LocalFileMetaData::getFileId, Function.identity()));
