@@ -1,7 +1,5 @@
 package main.filemanager.local;
 
-import lombok.Getter;
-
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
@@ -14,7 +12,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Getter
 public class LocalFileMetaDataManager {
     public static final String METADATA_FILE_NAME = "cybergari.metadata";
 

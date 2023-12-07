@@ -48,7 +48,7 @@ public class LocalFileManager implements FileManager {
         final var filePath = executor.getFilePathFromId(fileId);
 
         try {
-            compressor.uncompress(filePath);
+            compressor.uncompress(filePath, fileId);
         } catch (Exception e) {
             System.err.println("Error uncompressing file!");
             return false;

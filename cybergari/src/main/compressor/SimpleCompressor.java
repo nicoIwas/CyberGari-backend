@@ -17,9 +17,10 @@ import java.util.zip.ZipOutputStream;
 @Component
 @Slf4j
 public class SimpleCompressor implements Compressor {
+
+    final LocalFileMetaDataManager localFileMetaDataManager = new LocalFileMetaDataManager(LocalFileSettings.FOLDER);
     @Override
     public void compress(final String filePath, final String fileId) throws IOException {
-        final LocalFileMetaDataManager localFileMetaDataManager = new LocalFileMetaDataManager(LocalFileSettings.FOLDER);
         // compressing
         var tempFilePath = filePath + "temp";
 
@@ -55,20 +56,21 @@ public class SimpleCompressor implements Compressor {
 
 
         // fixing temp files
-        substituteTempFile(tempFilePath, filePath);
+        substituteTempFile(filePath);
     }
 
     @Override
-    public void uncompress(final String filePath) throws IOException {
+    public void uncompress(final String filePath, final String fileId) throws IOException {
         // uncompressing
-        final var tempFilePath = filePath + "temp";
+        final var metadata = localFileMetaDataManager.getMetaData(fileId).orElseThrow();
+        final var actualPath = filePath.replace("zip", metadata.getExtension());
 
         final var buffer = new byte[1024];
         final var zis = new ZipInputStream(new FileInputStream(filePath));
         zis.getNextEntry();
 
         // write file content
-        final var fos = new FileOutputStream(tempFilePath);
+        final var fos = new FileOutputStream(actualPath);
         int len;
         while ((len = zis.read(buffer)) > 0) {
             fos.write(buffer, 0, len);
@@ -78,11 +80,10 @@ public class SimpleCompressor implements Compressor {
         zis.close();
 
         // fixing temp files
-        substituteTempFile(tempFilePath, filePath);
+        substituteTempFile(filePath);
     }
 
-    private void substituteTempFile(final String tempPath, final String actualPath) {
-        final var temp = new File(tempPath);
+    private void substituteTempFile(final String actualPath) {
         final var actual = new File(actualPath);
 
         actual.delete();

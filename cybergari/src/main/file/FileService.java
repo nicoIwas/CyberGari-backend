@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -67,5 +68,10 @@ public class FileService {
                 }
         );
         return compressedFiles;
+    }
+
+    public List<String> uncompressFiles(List<String> filesToUncompress) {
+        return filesToUncompress.stream().filter(file -> !fileManager.uncompressFile(file))
+                   .collect(Collectors.toList());
     }
 }
