@@ -21,6 +21,7 @@ public class LocalFileMetaDataManager {
     public LocalFileMetaDataManager(final String root) {
         this.metadataPath = root + LocalFileSettings.SEPARATOR + METADATA_FILE_NAME;
         this.filesMetadata = getFilesMetadata();
+        System.out.println(filesMetadata.toString());
     }
 
     private Map<String, LocalFileMetaData> getFilesMetadata() {

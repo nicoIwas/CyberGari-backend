@@ -9,7 +9,8 @@ public class LocalFileMetaDataMapper {
         return new LocalFileMetaData(
                 f.getId(),
                 new ArrayList<>(f.getPriority().getTags().values()),
-                f.isCompressed()
+                f.isCompressed(),
+                f.getExtension()
         );
     }
 }
