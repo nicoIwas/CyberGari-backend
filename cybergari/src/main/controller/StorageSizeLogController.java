@@ -23,6 +23,7 @@ public class StorageSizeLogController {
     @Autowired
     LocalFileManager fileService;
 
+    @CrossOrigin
     @GetMapping("/storage-size-log/{userId}")
     public List<StorageSizeLogVO> getStorageSizeLogs(@PathVariable final String userId) {
         final var now = Instant.now();
@@ -30,6 +31,7 @@ public class StorageSizeLogController {
         return service.getLogs(userId, now.minus(WINDOW_SIZE, ChronoUnit.DAYS), now);
     }
 
+    @CrossOrigin
     @PostMapping("/decompress/{userId}")
     public List<String> uncompressFiles(@RequestBody final List<String> toDecompress, @PathVariable final String userId) {
         return toDecompress.stream().filter(fileId -> !fileService.uncompressFile(fileId)).toList();

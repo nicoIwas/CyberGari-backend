@@ -54,8 +54,8 @@ public class FileService {
         }
         filteredData.forEach(
                 fileId -> {
-                    var filePath = executor.getFilePathFromId(fileId);
-                    var file = new java.io.File(filePath);
+                    final var filePath = executor.getFilePathFromId(fileId);
+                    final var file = new java.io.File(filePath);
                     compressedFiles.add(
                         new FileResponse(
                             fileId,
