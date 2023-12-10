@@ -79,6 +79,10 @@ public class SimpleCompressor implements Compressor {
         zis.closeEntry();
         zis.close();
 
+        metadata.setCompressed(false);
+        localFileMetaDataManager.putMetaData(metadata);
+        localFileMetaDataManager.persistMetaData();
+
         // fixing temp files
         substituteTempFile(filePath);
     }
