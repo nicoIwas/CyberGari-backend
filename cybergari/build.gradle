@@ -16,6 +16,11 @@ sourceSets {
             srcDirs = ['src']
         }
     }
+    test {
+        java {
+            srcDirs = ['src/tests']
+        }
+    }
 }
 dependencies {
     implementation 'junit:junit:4.13.1'
