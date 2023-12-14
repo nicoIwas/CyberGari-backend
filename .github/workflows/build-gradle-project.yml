@@ -15,7 +15,10 @@ jobs:
           java-version: 17
           distribution: 'adopt'
       - name: Make Gradle Wrapper executable
-        run: chmod +x ./gradlew
+        run:
+          |
+          cd cybergari
+          chmod +x ./gradlew
       - name: Build with Gradle
         run:
           | 
