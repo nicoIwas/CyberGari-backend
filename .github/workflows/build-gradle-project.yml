@@ -19,4 +19,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
             arguments: build --scan
-            working-directory: cybergari
+            build-root-directory: cybergari
