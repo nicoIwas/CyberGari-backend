@@ -17,6 +17,9 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      - name: Create test prep
+        run: echo "test file text" > test/file.txt
+
       - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
 
