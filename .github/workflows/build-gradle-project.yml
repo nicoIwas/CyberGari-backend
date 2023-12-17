@@ -18,7 +18,9 @@ jobs:
           cache: gradle
 
       - name: Create test prep
-        run: echo "test file text" > test/file.txt
+        run: |
+          mkdir tests
+          touch tests/file
 
       - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
