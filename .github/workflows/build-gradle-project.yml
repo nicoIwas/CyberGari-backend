@@ -18,13 +18,9 @@ jobs:
           cache: gradle
 
       - name: Make Gradle Wrapper executable
-        run:
-          |
-          cd cybergari
-          chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       - name: Run Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
             arguments: build --scan
-            build-root-directory: cybergari
