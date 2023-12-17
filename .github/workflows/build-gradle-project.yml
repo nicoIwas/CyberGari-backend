@@ -17,11 +17,6 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
-      - name: Create test prep
-        run: |
-          mkdir tests
-          touch tests/file
-
       - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
 
