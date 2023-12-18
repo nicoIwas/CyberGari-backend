@@ -36,6 +36,7 @@ fabric.properties
 cybergari/.gradle/
 **/build/
 !src/**/build/
+src/main/java/com/cybergari/mvp/filemanager/local/LocalFileSettings.java
 
 # Ignore Gradle GUI config
 gradle-app.setting
