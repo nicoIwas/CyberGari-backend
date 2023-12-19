@@ -5,6 +5,7 @@ import com.cybergari.mvp.file.File;
 import com.cybergari.mvp.file.Folder;
 import com.cybergari.mvp.filemanager.FileManager;
 import com.cybergari.mvp.fixtures.FileFixture;
+import com.cybergari.mvp.fixtures.ReportConfirmationFixture;
 import com.cybergari.mvp.report.ReportRepository;
 import com.cybergari.mvp.report.ReportService;
 import com.cybergari.mvp.report.vo.Report;
@@ -25,6 +26,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Objects;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -57,6 +59,15 @@ public class ReportServiceTest {
         when(fileManager.getFileStructure()).thenReturn(new Folder());
         final Report report = reportService.generateReportForUser("ID");
         Assertions.assertTrue(Objects.nonNull(report));
+    }
+
+    @Test
+    public void givenAValidReportConfirmation_WhenExecutingReport_ShouldReturnAnEmptyList() {
+        when(fileManager.compressFile(any())).thenReturn(true);
+        when(fileManager.deleteFile(any())).thenReturn(true);
+        when(fileManager.getFileStructure()).thenReturn(new Folder());
+        final List<String> filesThatFailed = reportService.executeReport(ReportConfirmationFixture.load());
+        Assertions.assertTrue(filesThatFailed.isEmpty());
     }
 
     private List<File> givenValidFileList() {
